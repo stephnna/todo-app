@@ -1,20 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class TodoItem extends React.Component {
-  render() {
-    const { completed, id, title } = this.props.todo;
-    return (
-      <li>
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={() => this.props.handleChangeProps(id)}
-        />
-        <span>{title}</span>
-        <button type="button" onClick={() => this.props.deleteTodoProps(id)}>Delete</button>
-      </li>
-    );
-  }
-}
+const TodoItem = (props) => {
+  const { todo } = props;
+  const { completed, id, title } = todo;
+  const { handleChangeProps, deleteTodoProps } = props;
+  return (
+    <li>
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={() => handleChangeProps(id)}
+      />
+      {title}
+      <button type="button" onClick={() => deleteTodoProps(id)}>Delete</button>
+    </li>
+  );
+};
+
+TodoItem.defaultProps = {
+  todo: PropTypes.element,
+  handleChangeProps: PropTypes.func,
+  deleteTodoProps: PropTypes.func,
+};
+
+TodoItem.propTypes = {
+  todo: PropTypes.element,
+  handleChangeProps: PropTypes.func,
+  deleteTodoProps: PropTypes.func,
+};
 
 export default TodoItem;
